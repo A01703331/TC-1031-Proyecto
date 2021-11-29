@@ -4,4 +4,4 @@ Este proyecto leera datos de un archivo csv que corresponde a los mejores tiempo
 
 Para este proyecto solo se observan los datos de la categoria Any%, la cual consiste en llegar a los creditos del juego lo más rápido posible con cualquier método.
 
-# Se incluyen funciones para crear un arbol de BST y una lista de doble vinculo, falta agregar un algoritmo de ordenamiento (sera por string)
+### Se incluyen funciones para crear un arbol de BST y una lista de doble vinculo, falta agregar un algoritmo de ordenamiento (sera por string)
