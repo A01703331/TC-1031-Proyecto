@@ -18,41 +18,50 @@ using namespace std;
 int main(int argc, char* argv[]) {
     BSTree<std::string, int, std::string> Tanooki;
     std::ofstream Runs("SMO-test.csv"); // Toma un archivo de salida
-    Runs << "Name,Time,Version" << "\n";
+    Runs << "Player,Time,Version" << "\n";
+    string scheck;
     
-    if (Tanooki.empty()){  
-        cout << "El arbol y la lista estan vacios" << "\n";
-    } else {
-        cout << "El arbol y la lista no estan vacios" << "\n";
-    }
-        
+    cout << "\n" <<"1.- Esperada: " << 1 << "\nPrograma: " << Tanooki.empty() << "\n";
+	cout <<	(1 == Tanooki.empty() ? "success\n" : "fail\n");
+    
     Tanooki.add("ML",4381,"1.3.0");
     Tanooki.add("Trop",5012,"1.2.0");
     Tanooki.add("Ren",8429,"1.0.0");
     Tanooki.add("ML",4294,"1.3.0");
     Tanooki.add("Goro",4203,"1.3.1");
-    Tanooki.add("ML",4223,"1.3.0");
-    Tanooki.add("Tari",5231,"1.0.0");
-    Tanooki.add("Saber",4932,"1.2.0");
-    Tanooki.add("NecoArc",4423,"1.2.0");
-    Tanooki.add("Pringle",3523,"1.2.0");
-    cout << Tanooki.fromFastest() << "\n";
-    cout << "La lista tiene " << Tanooki.size() << " nodos.\n";
-    cout << "El arbol tiene una altura de " << Tanooki.height() << ".\n";
- 
-    if (Tanooki.empty()){  
-        cout << "El arbol y la lista estan vacios." << "\n";
-    } else {
-        cout << "El arbol y la lista no estan vacios." << "\n";
-    }
-    Tanooki.remove("NecoArc",4423,"1.2.0");
-    cout << "Impreso por arbol:" << "\n";
-    cout << Tanooki.fromFastest() << "\n";
-    cout << "La lista tiene " << Tanooki.size() << " nodos.\n";
-    cout << "El arbol tiene una altura de " << Tanooki.height() << ".\n";   
-    cout << "Los Runs de ML son:\n" << Tanooki.byName("ML");
-    cout << "Lista desordenada:" << "\n";
-    cout << Tanooki.printLinkList();
+
+    scheck = "Goro,1:10:03,1.3.1\nML,1:11:34,1.3.0\nML,1:13:01,1.3.0\nTrop,1:23:32,1.2.0\nRen,2:20:29,1.0.0";
+	cout << "\n" <<"2.- Esperada:\n" << scheck << "\nPrograma:\n" << Tanooki.fromFastest() << "\n";
+	cout <<	(!scheck.compare(Tanooki.fromFastest()) ? "success\n" : "fail\n");
+
+	cout << "\n" <<"3.- Esperada: " << 5 << "\nPrograma: " << Tanooki.size() << "\n";
+	cout <<	(5 == Tanooki.size() ? "success\n" : "fail\n");
+    
+	cout << "\n" <<"4.- Esperada: " << 3 << "\nPrograma: " << Tanooki.height() << "\n";
+	cout <<	(3 == Tanooki.height()  ? "success\n" : "fail\n");
+
+    cout << "\n" <<"5.- Esperada: " << 0 << "\nPrograma: " << Tanooki.empty() << "\n";
+	cout <<	(0 == Tanooki.empty() ? "success\n" : "fail\n");
+
+    Tanooki.remove("ML",4381,"1.3.0");
+    scheck = "Trop,1:23:32,1.2.0\nRen,2:20:29,1.0.0\nML,1:11:34,1.3.0\nGoro,1:10:03,1.3.1\n";
+	cout << "\n" <<"6.- Esperada:\n" << scheck << "\nPrograma:\n" << Tanooki.printLinkList() << "\n";
+	cout <<	(!scheck.compare(Tanooki.printLinkList()) ? "success\n" : "fail\n");
+
+	cout << "\n" <<"7.- Esperada: " << 4 << "\nPrograma: " << Tanooki.size() << "\n";
+	cout <<	(4 == Tanooki.size() ? "success\n" : "fail\n");
+    
+	cout << "\n" <<"8.- Esperada: " << 3 << "\nPrograma: " << Tanooki.height() << "\n";
+	cout <<	(3 == Tanooki.height()  ? "success\n" : "fail\n");
+    
+    Tanooki.add("ML",3854,"1.3.0");
+    Tanooki.add("ML",4381,"1.3.0");
+    //scheck
+	cout << "\n" <<"9.- Esperada: " << 3 << "\nPrograma: " << Tanooki.byName("ML") << "\n";
+	cout <<	(!scheck.compare(Tanooki.byName("ML")) ? "success\n" : "fail\n");
+
+    cout << "La lista ordenada esta en el archivo";
+
     Tanooki.sortMerge();
     cout << "Lista ordenada:" << "\n";
     cout << Tanooki.printLinkList();
