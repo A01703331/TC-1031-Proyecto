@@ -29,6 +29,7 @@ public:
 	Run(const Run<Player,Time,Version>&);
 	Run<Player,Time,Version> *faster, *slower, *next, *previous;
     void TotalTime(unsigned int, unsigned int, unsigned int);
+	bool find(std::string, unsigned int, std::string);
 	Run<Player,Time,Version>* add(std::string, unsigned int, std::string);
 	Run<Player,Time,Version>* succesor();
 	void remove(std::string, unsigned int, std::string, std::vector<Run<Player,Time,Version>*>&);
@@ -67,6 +68,20 @@ Run<Player,Time,Version>* Run<Player,Time,Version>::add(std::string nm, unsigned
 	}
 }
 
+template <class Player, class Time, class Version> //Agrega un nuevo Run al arbol
+bool Run<Player,Time,Version>::find(std::string nm, unsigned int secs, std::string ver) {
+	if (secs == Tseconds){
+		return true;
+	} else if (secs < Tseconds) {
+		return (faster!=NULL && faster->find(nm, secs, ver));
+	} else {
+		if (slower != NULL) {
+			return (slower!=NULL && slower->find(nm, secs, ver));
+		} else {
+			return false;
+		}
+	}
+}
 
 template <class Player, class Time, class Version> 
 Run<Player,Time,Version>* Run<Player,Time,Version>::succesor() {
@@ -305,19 +320,21 @@ void BSTree<Player,Time,Version>::add(std::string nm, int secs, std::string ver)
 template <class Player, class Time, class Version>
 void BSTree<Player,Time,Version>::remove(std::string nm, int secs, std::string ver) {
 	if (root != NULL) {
-		if (nm == root->name && secs == root->Tseconds && ver == root->version) {
-			Run<Player,Time,Version> *succ = root->succesor();
-			if (succ != NULL) {
-				succ->faster = root->faster;
-				succ->slower = root->slower;
+		if (root->find(nm, secs, ver)){
+			if (nm == root->name && secs == root->Tseconds && ver == root->version) {
+				Run<Player,Time,Version> *succ = root->succesor();
+				if (succ != NULL) {
+					succ->faster = root->faster;
+					succ->slower = root->slower;
+				}
+				TimeList.erase(std::remove(TimeList.begin(), TimeList.end(), root), TimeList.end());
+				delete root;
+				root = succ;
+				tamanio--;
+			} else {
+				root->remove(nm, secs, ver, TimeList);
+				tamanio--;
 			}
-			TimeList.erase(std::remove(TimeList.begin(), TimeList.end(), root), TimeList.end());
-			delete root;
-			root = succ;
-			tamanio--;
-		} else {
-			root->remove(nm, secs, ver, TimeList);
-			tamanio--;
 		}
 	}
 }
