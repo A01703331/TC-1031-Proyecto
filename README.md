@@ -72,11 +72,11 @@ Esta funcion hace recursion consigo misma para imprimir los tiempos en el orden 
 
 ### mergeSplit (privada)
 
-Esta funcion hace recursion para dividir una lista en mitades hasta que ya no pueda, luego 
+Esta funcion hace recursion para dividir una lista en mitades hasta que ya no pueda, luego manda dichas mitades a fusionarse en mergeArr para luego hacer la copia en copyArr. Su complejidad de tiempo es de O(n log n) para el peor de los casos. Debido a los multiples recorridos que hace en la lista.
 
 ### mergeArr (privada)
 
-Esta funcion copia los valores de la lista ordenada a la lista principal de la clase.  Su complejidad de tiempo es de O(n) para el peor de los casos.
+Esta funcion añade las mitades que recibe de tal forma que ordena los datos de forma ascendente. Su complejidad de tiempo es de O(n) para el peor de los casos.
 
 ### copyArr (privada)
 
