@@ -20,6 +20,10 @@ El programa cuenta con un vector de apuntadores que es vinculado de ambos lados.
 
 El programa usa un arbol para tener un registro ordenado de los tiempos que se le alimentan, teniendo como raiz al primer registro que se le da.
 
+### SICT0303B Implementa mecanismos de escritura de archivos correctos
+
+El programa crea un archivo csv para imprimir los tiempos en la forma que dicta el usuario en el main.
+
 # Analisis de complejidad de tiempo
 
 ## Funciones de clase Run
