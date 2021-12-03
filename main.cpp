@@ -19,54 +19,108 @@ int main(int argc, char* argv[]) {
     BSTree<std::string, int, std::string> Tanooki;
     std::ofstream Runs("SMO-test.csv"); // Toma un archivo de salida
     Runs << "Player,Time,Version" << "\n";
-    string scheck;
+    unsigned int option;
+    cout << "Bienvenido al organizador de datos de SMO, este programa escribe los datos a un archivo, elija una opcion:" << "\n";
+    cout << "1: Agregar un run" << "\n";
+    cout << "2: Quitar un run" << "\n";
+    cout << "3: Verificar si no hay runs" << "\n";
+    cout << "4: Verificar size de arreglo" << "\n";
+    cout << "5: Imprimir tiempos por más rápido" << "\n";
+    cout << "6: Imprimir tiempos por orden de agregación" << "\n";
+    cout << "7: Ordenar lista e imprimir" << "\n";
+    cout << "Otro valor: salir" << "\n";
+    cin >> option;
     
-    cout << "\n" <<"1.- Esperada: " << 1 << "\nPrograma: " << Tanooki.empty() << "\n";
-	cout <<	(1 == Tanooki.empty() ? "success\n" : "fail\n");
-    
-    Tanooki.add("ML",4381,"1.3.0");
-    Tanooki.add("Trop",5012,"1.2.0");
-    Tanooki.add("Ren",8429,"1.0.0");
-    Tanooki.add("ML",4294,"1.3.0");
-    Tanooki.add("Goro",4203,"1.3.1");
+    while (option>0 && option<8){
+        if (option==1){
+            std::string Player, Version;
+            unsigned int Time = 0;
+            cout << "Ingrese el nombre del jugador:" << "\n";
+            cin >> Player;
+            cout << "Ingrese el tiempo en segundos:" << "\n";
+            cin >> Time;
+            while (Time < 1){
+                cout << "Ingrese el tiempo en segundos (solo numeros positivos):" << "\n";
+                cin >> Time;
+            }
+            cout << "Ingrese la version del juego:" << "\n";
+            cin >> Version;
+            Tanooki.add(Player,Time,Version);
+            cout << "1: Agregar un run" << "\n";
+            cout << "2: Quitar un run" << "\n";
+            cout << "3: Verificar si no hay runs" << "\n";
+            cout << "4: Verificar size de arreglo" << "\n";
+            cout << "5: Imprimir tiempos por más rápido" << "\n";
+            cout << "6: Imprimir tiempos por orden de agregación" << "\n";
+            cout << "7: Ordenar lista e imprimir" << "\n";
+            cout << "Otro valor: salir" << "\n";
+            cin >> option;
+        } else if (option == 2){
+            std::string Player, Version;
+            unsigned int Time = 0;
+            cout << "Ingrese el nombre del jugador:" << "\n";
+            cin >> Player;
+            cout << "Ingrese el tiempo en segundos:" << "\n";
+            cin >> Time;
+            while (Time < 1){
+                cout << "Ingrese el tiempo en segundos (solo numeros positivos):" << "\n";
+                cin >> Time;
+            }
+            cout << "Ingrese la version del juego:" << "\n";
+            cin >> Version;
+            Tanooki.remove(Player,Time,Version);
+            cout << "1: Agregar un run" << "\n";
+            cout << "2: Quitar un run" << "\n";
+            cout << "3: Verificar si no hay runs" << "\n";
+            cout << "4: Verificar size de arreglo" << "\n";
+            cout << "5: Imprimir tiempos por más rápido" << "\n";
+            cout << "6: Imprimir tiempos por orden de agregación" << "\n";
+            cout << "7: Ordenar lista e imprimir" << "\n";
+            cout << "Otro valor: salir" << "\n";
+            cin >> option;
+        } else if (option == 3){
+            if (Tanooki.empty()){
+                cout << "No hay runs guardados" << "\n";
+            } else {
+                cout << "Hay runs guardados" << "\n";
+            }
+            cout << "1: Agregar un run" << "\n";
+            cout << "2: Quitar un run" << "\n";
+            cout << "3: Verificar si no hay runs" << "\n";
+            cout << "4: Verificar size de arreglo" << "\n";
+            cout << "5: Imprimir tiempos por más rápido" << "\n";
+            cout << "6: Imprimir tiempos por orden de agregación" << "\n";
+            cout << "7: Ordenar lista e imprimir" << "\n";
+            cout << "Otro valor: salir" << "\n";
+            cin >> option;
+        } else if (option == 4){
+            cout << "Actualmente hay " << Tanooki.size() << " runs guardados" << "\n";
+            cout << "1: Agregar un run" << "\n";
+            cout << "2: Quitar un run" << "\n";
+            cout << "3: Verificar si no hay runs" << "\n";
+            cout << "4: Verificar size de arreglo" << "\n";
+            cout << "5: Imprimir tiempos en archivo por más rápido" << "\n";
+            cout << "6: Imprimir tiempos por orden de agregación" << "\n";
+            cout << "7: Ordenar lista e imprimir" << "\n";
+            cout << "Otro valor: salir" << "\n";
+        }  else if (option == 5){
+            Runs << Tanooki.fromFastest();
+            cout << "Los tiempos se han impreso en el archivo SMO-test.csv" << "\n";
+            Runs.close();
+            return 0;
+        }  else if (option == 6){
+            Runs << Tanooki.printLinkList();
+            cout << "Los tiempos se han impreso en el archivo SMO-test.csv" << "\n";
+            Runs.close();
+            return 0;
+        } else if (option == 7) { 
+            Tanooki.sortMerge();
+            Runs << Tanooki.printLinkList();
+            cout << "Los tiempos se han impreso en el archivo SMO-test.csv" << "\n";
+            Runs.close();
+            return 0;
 
-    scheck = "Goro,1:10:03,1.3.1\nML,1:11:34,1.3.0\nML,1:13:01,1.3.0\nTrop,1:23:32,1.2.0\nRen,2:20:29,1.0.0";
-	cout << "\n" <<"2.- Esperada:\n" << scheck << "\nPrograma:\n" << Tanooki.fromFastest() << "\n";
-	cout <<	(!scheck.compare(Tanooki.fromFastest()) ? "success\n" : "fail\n");
-
-	cout << "\n" <<"3.- Esperada: " << 5 << "\nPrograma: " << Tanooki.size() << "\n";
-	cout <<	(5 == Tanooki.size() ? "success\n" : "fail\n");
-    
-	cout << "\n" <<"4.- Esperada: " << 3 << "\nPrograma: " << Tanooki.height() << "\n";
-	cout <<	(3 == Tanooki.height()  ? "success\n" : "fail\n");
-
-    cout << "\n" <<"5.- Esperada: " << 0 << "\nPrograma: " << Tanooki.empty() << "\n";
-	cout <<	(0 == Tanooki.empty() ? "success\n" : "fail\n");
-
-    Tanooki.remove("ML",4381,"1.3.0");
-    scheck = "Trop,1:23:32,1.2.0\nRen,2:20:29,1.0.0\nML,1:11:34,1.3.0\nGoro,1:10:03,1.3.1\n";
-	cout << "\n" <<"6.- Esperada:\n" << scheck << "\nPrograma:\n" << Tanooki.printLinkList() << "\n";
-	cout <<	(!scheck.compare(Tanooki.printLinkList()) ? "success\n" : "fail\n");
-
-	cout << "\n" <<"7.- Esperada: " << 4 << "\nPrograma: " << Tanooki.size() << "\n";
-	cout <<	(4 == Tanooki.size() ? "success\n" : "fail\n");
-    
-	cout << "\n" <<"8.- Esperada: " << 3 << "\nPrograma: " << Tanooki.height() << "\n";
-	cout <<	(3 == Tanooki.height()  ? "success\n" : "fail\n");
-    
-    Tanooki.add("ML",3854,"1.3.0");
-    Tanooki.add("ML",4381,"1.3.0");
-    //scheck
-	cout << "\n" <<"9.- Esperada: " << 3 << "\nPrograma: " << Tanooki.byName("ML") << "\n";
-	cout <<	(!scheck.compare(Tanooki.byName("ML")) ? "success\n" : "fail\n");
-
-    cout << "La lista ordenada esta en el archivo";
-
-    Tanooki.sortMerge();
-    cout << "Lista ordenada:" << "\n";
-    cout << Tanooki.printLinkList();
-    Runs << Tanooki.printLinkList();
-    Runs.close();
-
+        }
+    }
     return 0;
 }
